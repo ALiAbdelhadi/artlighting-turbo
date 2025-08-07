@@ -2,7 +2,7 @@ import { Providers } from "@/components/providers";
 import { constructMetadata } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { ThemeProvider } from "@repo/ui/theme-provider";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 

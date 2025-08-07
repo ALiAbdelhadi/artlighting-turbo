@@ -1,6 +1,5 @@
 "use server";
-import { ProductColorTemp } from "@prisma/client";
-import { db } from "@repo/database";
+import { prisma, ProductColorTemp } from "@repo/database";
 
 
 export const changeProductColorTemp = async ({
@@ -10,7 +9,7 @@ export const changeProductColorTemp = async ({
   productId: string;
   newColorTemp: ProductColorTemp;
 }) => {
-  await db.product.update({
+  await prisma.product.update({
     where: { productId },
     data: { productColor: newColorTemp },
   });

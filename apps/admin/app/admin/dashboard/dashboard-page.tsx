@@ -1,8 +1,9 @@
 "use client";
 import DashboardHeader from "@/components/dashboard-header";
 import DashboardSummary from "@/components/dashboard-summary";
+import DiscountPrice from "@/components/discount-price";
+import NormalPrice from "@/components/normal-price";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -25,14 +26,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { formatPrice } from "@/lib/utils";
-import { OrderStatus, Product, ShippingAddress, User } from "@prisma/client";
+import { OrderStatus, Product, ShippingAddress, User } from "@repo/database";
+import { Button } from "@repo/ui/button";
+import { formatPrice } from "@repo/ui/lib";
 import { MoveHorizontalIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { DashboardServer } from "./dashboard-server";
-import DiscountPrice from "@/components/discount-price";
-import NormalPrice from "@/components/normal-price";
 
 interface Order {
   id: number;

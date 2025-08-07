@@ -1,4 +1,4 @@
-import type { Order, Product } from "@prisma/client"
+import type { Order, Product } from "@repo/database"
 
 export interface ProductWithRelations extends Product {
   category: { name: string }

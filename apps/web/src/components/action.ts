@@ -1,5 +1,7 @@
 "use server";
-import { db } from "@repo/database";
+
+import { prisma } from "@repo/database";
+
 
 export type SaveConfigArgs = {
   ProductId: string;
@@ -21,12 +23,12 @@ export async function saveConfig({
   discount,
   lampPriceIncrease,
 }: SaveConfigArgs) {
-  const existingConfig = await db.configuration.findUnique({
+  const existingConfig = await prisma.configuration.findUnique({
     where: { id: configId },
   });
   const totalPrice = configPrice;
   if (existingConfig) {
-    await db.configuration.update({
+    await prisma.configuration.update({
       where: { id: configId },
       data: {
         ProductId,
@@ -40,7 +42,7 @@ export async function saveConfig({
       },
     });
   } else {
-    await db.configuration.create({
+    await prisma.configuration.create({
       data: {
         ProductId,
         quantity,

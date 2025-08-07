@@ -2,7 +2,7 @@ import { ChandelierItems, IndoorItems, OutdoorItems } from "@/constants";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
 import ChangeTheme from "../theme-changer";
-import { Container } from "../container";
+import { Container } from "@repo/ui";
 
 export default function Footer() {
   return (

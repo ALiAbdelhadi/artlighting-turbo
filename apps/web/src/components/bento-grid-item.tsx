@@ -1,4 +1,5 @@
-import { cn } from "@/lib/utils"
+
+import { cn } from "@repo/ui/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -29,7 +30,7 @@ export function BentoGridItem({ project, className }: BentoGridItemProps) {
             )}
         >
             <div className="relative h-full">
-                <div className="relative h-48 md:h-full min-h-[200px] overflow-hidden">
+                <div className="relative h-full overflow-hidden">
                     <Image
                         src={project.ProjectImages[0]}
                         alt={project.ProjectName}

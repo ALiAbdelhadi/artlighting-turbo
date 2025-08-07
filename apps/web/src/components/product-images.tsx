@@ -114,9 +114,6 @@ export default function ProductImages({ productImages }: ProductImagesProps) {
           cursor: pointer;
           transition: border 0.3s ease;
         }
-        .thumbnail-wrapper:hover {
-          border: 2px solid #000;
-        }
         .thumbnail-image {
           width: 64px;
           height: 64px;

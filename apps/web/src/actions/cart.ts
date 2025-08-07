@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@repo/database"
+import { prisma } from "@repo/database";
 
 export async function addToCart(productId: string, quantity: number = 1) {
   const { userId } = await auth();
@@ -9,29 +9,29 @@ export async function addToCart(productId: string, quantity: number = 1) {
     throw new Error("User not authenticated");
   }
   try {
-    let user = await db.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { id: userId },
     });
     if (!user) {
-      user = await db.user.create({
+      user = await prisma.user.create({
         data: { id: userId },
       });
     }
-    const product = await db.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { productId },
     });
     if (!product) {
       throw new Error("Product not found");
     }
-    let cart = await db.cart.findUnique({
+    let cart = await prisma.cart.findUnique({
       where: { userId },
     });
     if (!cart) {
-      cart = await db.cart.create({
+      cart = await prisma.cart.create({
         data: { userId },
       });
     }
-    const existingCartItem = await db.cartItem.findUnique({
+    const existingCartItem = await prisma.cartItem.findUnique({
       where: {
         cartId_productId: {
           cartId: cart.id,
@@ -40,12 +40,12 @@ export async function addToCart(productId: string, quantity: number = 1) {
       },
     });
     if (existingCartItem) {
-      await db.cartItem.update({
+      await prisma.cartItem.update({
         where: { id: existingCartItem.id },
         data: { quantity: existingCartItem.quantity + quantity },
       });
     } else {
-      await db.cartItem.create({
+      await prisma.cartItem.create({
         data: {
           cartId: cart.id,
           productId: product.id,

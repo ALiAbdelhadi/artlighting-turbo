@@ -1,8 +1,8 @@
 "use client"
 
-import { Container } from "@/components/container"
 import { BentoGridItem } from "@/components/bento-grid-item"
-import { cn } from "@/lib/utils"
+import { Container } from "@repo/ui"
+import { cn } from "@repo/ui/lib/utils"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { TextPlugin } from "gsap/TextPlugin"

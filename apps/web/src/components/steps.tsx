@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@repo/ui"
 import { motion } from "framer-motion";
 import { CheckCircle, Circle } from "lucide-react";
 import { usePathname } from "next/navigation";

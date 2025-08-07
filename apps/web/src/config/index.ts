@@ -1,4 +1,4 @@
-import { ProductChandLamp } from "@prisma/client";
+import { ProductChandLamp } from "@repo/database";
 
 export const PRODUCT_LAMP_LABEL: Record<ProductChandLamp, string> = {
     lamp9w: "Lamp 9w",

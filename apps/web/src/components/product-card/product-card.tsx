@@ -4,8 +4,7 @@ import { addToCart } from "@/actions/cart";
 import NormalPrice from "@/components/normal-price";
 import { useAuth } from "@clerk/nextjs";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils"
+import { Button } from "@repo/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
@@ -15,6 +14,7 @@ import { toast } from "sonner";
 import AddToCardIcon from "../add-to-card";
 import DiscountPrice from "../discount-price";
 import styles from "./product-card.module.css";
+import { cn } from "@repo/ui/lib/utils";
 
 interface Product {
   productId: string;
@@ -56,7 +56,8 @@ export default function ProductCard({ product }: { product: Product }) {
         await addToCart(product.productId);
         toast.success(`${product.productName} has been added to your cart successfully.`);
       } catch (error) {
-        toast.error("Failed to add item to cart. Please try again.")
+        console.error("Failed to add item to cart:", error)
+        toast("Failed to add item to cart. Please try again.")
       }
     });
   };

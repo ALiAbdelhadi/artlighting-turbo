@@ -1,7 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { db } from "@repo/database";
 import { notFound } from "next/navigation";
 import OrdersClient from "./orders-client";
+import { prisma } from "@repo/database";
 
 const OrdersPage = async () => {
   const { userId } = await auth();
@@ -13,7 +13,7 @@ const OrdersPage = async () => {
   if (user.emailAddresses[0].emailAddress !== ADMIN_EMAIL) {
     return notFound();
   }
-  const orders = await db.order.findMany({
+  const orders = await prisma.order.findMany({
     where: { isCompleted: true },
     orderBy: { createdAt: "desc" },
     include: {
@@ -23,7 +23,7 @@ const OrdersPage = async () => {
       configuration: true,
     },
   });
-  const discountData = await db.configuration.findFirst({
+  const discountData = await prisma.configuration.findFirst({
     select: { discount: true },
   });
   const discount = discountData?.discount || 0;

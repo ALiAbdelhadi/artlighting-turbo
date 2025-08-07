@@ -1,5 +1,5 @@
 "use client";
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";

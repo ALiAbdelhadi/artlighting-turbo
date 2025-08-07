@@ -1,7 +1,13 @@
 import { readFileSync } from "fs";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL || "postgresql://Artlighting_owner:yKji3Mln6hAX@ep-gentle-bonus-a2strofg-pooler.eu-central-1.aws.neon.tech/Artlighting?sslmode=require"
+    }
+  }
+});
 
 const ProductColorTemp = {
   warm: "warm",
@@ -28,11 +34,11 @@ function determineProductColor(productData) {
 
 function determineProductIp(productData) {
   const ip = productData.specificationsTable.IP;
-  if (ip === "20") return ProductIP.IP20;
-  if (ip === "44") return ProductIP.IP44;
-  if (ip === "54") return ProductIP.IP54;
-  if (ip === "65") return ProductIP.IP65;
-  if (ip === "68") return ProductIP.IP68;
+  if (ip === 20 || ip === "20") return ProductIP.IP20;
+  if (ip === 44 || ip === "44") return ProductIP.IP44;
+  if (ip === 54 || ip === "54") return ProductIP.IP54;
+  if (ip === 65 || ip === "65") return ProductIP.IP65;
+  if (ip === 68 || ip === "68") return ProductIP.IP68;
   return ProductIP.IP20;
 }
 
@@ -108,9 +114,9 @@ async function main() {
                   ? determineProductIp(productData)
                   : ProductIP.IP20,
                 discount: productData.discount || 0,
-                finish: productData.specificationsTable.Finished || null,
-                lampBase: productData.specificationsTable["Lamp Base"] || null,
-                bulb: productData.specificationsTable.BULB || null,
+                finish: productData.specificationsTable?.Finished || null,
+                lampBase: productData.specificationsTable?.["Lamp Base"] || null,
+                bulb: productData.specificationsTable?.BULB || null,
                 hNumber:
                   productData.Hnumber ||
                   productData.specificationsTable?.Hnumber ||

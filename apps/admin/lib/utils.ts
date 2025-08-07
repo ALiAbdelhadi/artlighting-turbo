@@ -1,11 +1,5 @@
-import { clsx, type ClassValue } from "clsx"
+
 import { Metadata } from "next";
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
 
 export function constructMetadata({
   title = "Art Lighting Company - Professional lighting: Shop Spotlights, Light Poles, and LED Lights",
@@ -117,14 +111,3 @@ export function constructMetadata({
     },
   };
 }
-
-
-
-export const formatPrice = (price: number) => {
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "EGP",
-    useGrouping: false,
-  });
-  return formatter.format(price);
-};

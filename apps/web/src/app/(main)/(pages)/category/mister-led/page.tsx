@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { db } from "@repo/database";
 import { constructMetadata } from "@/lib/utils";
+import { prisma } from "@repo/database";
 import MisterLedSection from "./mister-led-section";
 
 type SectionType = "chandelier";
@@ -10,7 +10,7 @@ const sectionTypeImages: Record<SectionType, string> = {
 };
 
 export async function generateStaticParams() {
-  const categories = await db.product.groupBy({
+  const categories = await prisma.product.groupBy({
     by: ["sectionType"],
     where: {
       Brand: "mister-led",
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 }
 
 async function Page() {
-  const categories = await db.product.groupBy({
+  const categories = await prisma.product.groupBy({
     by: ["sectionType"],
     where: {
       Brand: "mister-led",

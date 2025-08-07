@@ -1,5 +1,5 @@
 "use client";
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";

@@ -1,7 +1,8 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { db } from "@repo/database";
 import { constructMetadata } from "@/lib/utils";
+import { prisma } from "@repo/database";
 import BalcomSection from "./balcom-section";
+;
 
 type SectionType = "indoor" | "outdoor";
 
@@ -11,7 +12,7 @@ const sectionTypeImages: Record<SectionType, string> = {
 };
 
 async function Page() {
-  const categories = await db.product.groupBy({
+  const categories = await prisma.product.groupBy({
     by: ["sectionType"],
     where: {
       Brand: "balcom",

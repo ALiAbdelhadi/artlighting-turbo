@@ -2,6 +2,7 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
 import { motion } from "framer-motion";
 import Link from "next/link";
+
 export default function FAQs() {
   const variants = {
     hidden: { opacity: 0, y: 15 },

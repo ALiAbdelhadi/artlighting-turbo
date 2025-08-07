@@ -4,7 +4,7 @@ import { SignIn } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@repo/ui/scroll-area";
 import "../app/clerk.css";
 
 export function ThemedSignIn() {
@@ -20,7 +20,7 @@ export function ThemedSignIn() {
   }
 
   return (
-    <div className="max-h-[90vh] w-full col-span-full lg:col-span-1 overflow-auto hide-scrollbar">
+    <div className="max-h-[90vh] col-span-full lg:col-span-1 overflow-auto hide-scrollbar">
       <ScrollArea>
         <SignIn
           appearance={{

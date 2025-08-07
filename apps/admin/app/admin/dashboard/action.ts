@@ -1,6 +1,7 @@
 "use server";
-import { db } from "@repo/database";
-import { OrderStatus } from "@prisma/client";
+
+import { OrderStatus, prisma } from "@repo/database";
+
 export const changeOrderStatus = async ({
   id,
   newStatus,
@@ -8,7 +9,7 @@ export const changeOrderStatus = async ({
   id: number;
   newStatus: OrderStatus;
 }) => {
-  await db.order.update({
+  await prisma.order.update({
     where: { id },
     data: { status: newStatus },
   });

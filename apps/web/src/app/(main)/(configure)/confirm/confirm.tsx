@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import CustomInput from "@/components/custom-input";
 import DiscountPrice from "@/components/discount-price";
 import LoadingState from "@/components/loading-state";
@@ -9,8 +9,8 @@ import ProductImages from "@/components/product-images";
 import { authFormConfirmingOrderSchema } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import { Button } from "@repo/ui/button";
+import { Form } from "@repo/ui/form";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Home, Loader2, RefreshCw } from 'lucide-react';
@@ -49,10 +49,6 @@ type Order = {
     country: string
     phoneNumber: string
   }
-};
-
-type ConfirmProps = {
-  discount: number;
 };
 
 const fetchOrderDetails = async (orderId: string): Promise<Order> => {
@@ -135,7 +131,7 @@ const NotFoundState = ({ onGoHome }: { onGoHome: () => void }) => (
       </div>
       <h2 className="text-2xl font-semibold text-foreground mb-3">Order not found</h2>
       <p className="text-gray-600 mb-8">
-        We couldn't find the order you're looking for.
+        We couldn&apos;t find the order you&apos;re looking for.
       </p>
       <Button onClick={onGoHome} className="flex items-center gap-2 rounded-full px-6 bg-black hover:bg-gray-800">
         <Home className="w-4 h-4" />
@@ -145,7 +141,7 @@ const NotFoundState = ({ onGoHome }: { onGoHome: () => void }) => (
   </div>
 );
 
-const Confirm = ({ discount }: ConfirmProps) => {
+const Confirm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();

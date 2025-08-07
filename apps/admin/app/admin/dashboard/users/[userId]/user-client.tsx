@@ -1,9 +1,9 @@
 "use client";
 
 import NormalPrice from "@/components//normal-price";
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import DiscountPrice from "@/components/discount-price";
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import {
   Card,
   CardContent,
@@ -21,14 +21,14 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UserAvatar from "@/components/user-avatar";
-import { formatPrice } from "@/lib/utils";
-import { Order, Product, ShippingAddress, User } from "@prisma/client";
+import { formatPrice } from "@repo/ui/lib";
 import { format } from "date-fns";
 import { Edit2, FilePenIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import StatusDropdown from "../../status-dropdown-menu";
+import { User, ShippingAddress, Product, Order } from "@prisma/client";
 
 interface UserWithDetails extends User {
   shippingAddress: ShippingAddress | null;
@@ -134,7 +134,7 @@ const UserPageClient = ({ user }: UserPageClientProps) => {
     <div className="py-8">
       <Container>
         <h1 className="text-3xl font-bold mb-8">
-          {user.shippingAddress?.fullName}'s Account
+          {user.shippingAddress?.fullName}&apos;s Account
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Card className="col-span-1">

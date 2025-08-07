@@ -1,4 +1,4 @@
-export async function updateConfiguration(configId: string, updates: any) {
+export async function updateConfiguration(configId: string, updates: Record<string, unknown>) {
     try {
         const response = await fetch(`/api/configurations/${configId}`, {
             method: "PUT",

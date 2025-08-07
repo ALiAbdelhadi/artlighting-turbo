@@ -1,5 +1,5 @@
 "use client";
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import DiscountPrice from "@/components/discount-price";
 import NormalPrice from "@/components/normal-price";
 import { PRODUCT_LAMP_LABEL } from "@/config";
@@ -8,8 +8,8 @@ import {
   Configuration,
   Product,
   ShippingAddress
-} from "@prisma/client";
-import { Button } from "@/components/ui/button";
+} from "@repo/database";
+import { Button } from "@repo/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -175,39 +175,12 @@ const Complete = ({ discount, Brand }: CompleteProps) => {
         No order found
       </div>
     );
-  const handleAddMoreProducts = () => {
-    if (order) {
-      localStorage.setItem("currentOrderId", order.id.toString());
-    }
-    router.push(`/category?orderingMoreProducts?orderId${order.id}`);
-  };
   const isCairo =
     order.shippingAddress.state
       .toLowerCase()
       .replace(/\s/g, "")
       .match(/cairo|القاهرة/) !== null;
-  function getShippingPriceValue(price: number): number | null {
-    if (isCairo) {
-      return price;
-    } else {
-      return null;
-    }
-  }
-  function ShippingMessage() {
-    if (isCairo) {
-      return (
-        <span className="text-base">
-          Your order will be delivered to Cairo
-        </span>
-      );
-    } else {
-      return (
-        <span>
-          We will contact you within 24 hours to provide the shipping price for your location.
-        </span>
-      );
-    }
-  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -225,7 +198,7 @@ const Complete = ({ discount, Brand }: CompleteProps) => {
                   Complete your order
                 </h1>
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Thank you for your order! We're processing your purchase and
+                  Thank you for your order! We&apos;re processing your purchase and
                   will send you a completion message once you complete the
                   order.
                 </p>
@@ -335,7 +308,7 @@ const Complete = ({ discount, Brand }: CompleteProps) => {
                             )}
                             {Brand === "balcom" && (
                               <TableCell className="font-semibold">
-                                {order.productIp}
+                                {order.configuration.productIp}
                               </TableCell>
                             )}
                             {Brand === "mister-led" &&

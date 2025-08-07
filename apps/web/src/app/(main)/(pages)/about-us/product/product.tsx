@@ -1,4 +1,4 @@
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import Button from "@/components/custom-button";
 import Image from "next/image";
 function Product() {

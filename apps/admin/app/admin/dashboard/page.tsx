@@ -1,8 +1,8 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { db } from "@repo/database";
+import { prisma } from "@repo/database";
 import { redirect } from "next/navigation";
-import Dashboard from "./dashboard-page";
 import { toast } from "sonner";
+import Dashboard from "./dashboard-page";
 
 const Page = async () => {
   const { userId } = await auth();
@@ -17,7 +17,7 @@ const Page = async () => {
     toast.error("User not authorized, redirecting to 404")
     return redirect("/404");
   }
-  const discountData = await db.configuration.findFirst({
+  const discountData = await prisma.configuration.findFirst({
     select: { discount: true },
   });
   return <Dashboard discount={discountData?.discount || 0} />;

@@ -1,8 +1,7 @@
 "use server"
 
-import { db } from "@repo/database";
-import { auth } from "@clerk/nextjs/server"
-import { clerkClient } from "@clerk/nextjs/server"
+import { auth, clerkClient } from "@clerk/nextjs/server"
+import { prisma } from "@repo/database"
 
 export async function createOrder({
   configId,
@@ -20,7 +19,7 @@ export async function createOrder({
       throw new Error("You need to be logged in")
     }
 
-    const configuration = await db.configuration.findUnique({
+    const configuration = await prisma.configuration.findUnique({
       where: { id: configId },
     })
 
@@ -29,7 +28,7 @@ export async function createOrder({
       throw new Error("Configuration not found")
     }
 
-    const product = await db.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { productId: configuration.ProductId },
     })
 
@@ -38,14 +37,14 @@ export async function createOrder({
       throw new Error("Product not found")
     }
 
-    let dbUser = await db.user.findUnique({ where: { id: userId } })
+    let dbUser = await prisma.user.findUnique({ where: { id: userId } })
 
     if (!dbUser) {
       // Get the Clerk client instance properly
       const clerk = await clerkClient()
       const clerkUser = await clerk.users.getUser(userId)
 
-      dbUser = await db.user.create({
+      dbUser = await prisma.user.create({
         data: {
           id: userId,
           email: clerkUser.emailAddresses[0]?.emailAddress ?? "",
@@ -54,7 +53,7 @@ export async function createOrder({
       })
     }
 
-    let shippingAddress = await db.shippingAddress.findFirst({
+    let shippingAddress = await prisma.shippingAddress.findFirst({
       where: { userId: userId },
     })
 
@@ -62,7 +61,7 @@ export async function createOrder({
       const clerk = await clerkClient()
       const clerkUser = await clerk.users.getUser(userId)
 
-      shippingAddress = await db.shippingAddress.create({
+      shippingAddress = await prisma.shippingAddress.create({
         data: {
           userId: userId,
           fullName: `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`,
@@ -80,7 +79,7 @@ export async function createOrder({
     const shippingPrice = configuration.shippingPrice
     const finalPrice = discountedPrice * quantity + shippingPrice
 
-    const order = await db.order.create({
+    const order = await prisma.order.create({
       data: {
         userId: userId,
         configurationId: configId,

@@ -1,13 +1,13 @@
-import { db } from "@repo/database";
 import { notFound } from "next/navigation";
 import UserClient from "./user-client";
+import { prisma } from "@repo/database";
 
 const UserPage = async ({ params }: { params: { userId: string } }) => {
   console.log("Received params:", params);
   console.log("Searching for user with ID:", params.userId);
 
   try {
-    const user = await db.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: params.userId,
       },

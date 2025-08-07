@@ -1,5 +1,6 @@
-import { db } from "@repo/database";
+
 import { auth } from "@clerk/nextjs/server"
+import { prisma } from "@repo/database"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ configId: string }> }) {
@@ -12,7 +13,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         const { configId } = await params
         const body = await request.json()
 
-        const existingConfig = await db.configuration.findUnique({
+        const existingConfig = await prisma.configuration.findUnique({
             where: { id: configId },
         })
 
@@ -21,7 +22,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             return NextResponse.json({ error: "Configuration not found" }, { status: 404 })
         }
 
-        const updatedConfig = await db.configuration.update({
+        const updatedConfig = await prisma.configuration.update({
             where: { id: configId },
             data: {
                 ...body,
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     try {
         const { configId } = await params
 
-        const configuration = await db.configuration.findUnique({
+        const configuration = await prisma.configuration.findUnique({
             where: { id: configId },
         })
 

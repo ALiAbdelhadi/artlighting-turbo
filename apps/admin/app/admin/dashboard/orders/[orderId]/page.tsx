@@ -1,9 +1,8 @@
 
-
-import { db } from "@repo/database";
+import { prisma } from "@repo/database";
 import OrderPage from "./order-page";
 const OrderIdPage = async ({ params }: { params: { orderId: string } }) => {
-  const order = await db.order.findFirst({
+  const order = await prisma.order.findFirst({
     where: {
       isCompleted: true,
     },
@@ -11,6 +10,7 @@ const OrderIdPage = async ({ params }: { params: { orderId: string } }) => {
       shippingAddress: true,
       product: true,
       user: true,
+      configuration: true
     },
     orderBy: {
       createdAt: "desc",

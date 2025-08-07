@@ -1,15 +1,15 @@
 "use client";
 
 import { updateProductIP } from "@/actions/product-ip";
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils"
-import { ProductIP } from "@prisma/client";
+import { cn } from "@repo/ui";
+import { ProductIP } from "@repo/database";
 import { Droplets } from "lucide-react";
 import { useEffect, useState } from "react";
 

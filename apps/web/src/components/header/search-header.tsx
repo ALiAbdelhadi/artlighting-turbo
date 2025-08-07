@@ -1,9 +1,9 @@
 "use client"
 
 import { searchProducts } from "@/actions/search"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { Button } from "@repo/ui/button"
+import { ScrollArea } from "@repo/ui/scroll-area"
 import { Loader2, Search } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -155,10 +155,10 @@ export function SearchHeader({ isMobile = false, isMobileSheet = false }: Search
                                 </div>
                             )}
                             {!isSearching && searchTerm && filteredProducts.length === 0 && (
-                                <div className="p-8 text-center text-muted-foreground">No products found for "{searchTerm}"</div>
+                                <div className="p-8 text-center text-muted-foreground">No products found for &quot;{searchTerm}&quot;</div>
                             )}
                             {filteredProducts.length > 0 && (
-                                <ScrollArea className="h-96">
+                                <ScrollArea className="relative h-96 overflow-auto">
                                     <div className="p-4">
                                         <div className="space-y-4">
                                             {filteredProducts.slice(0, 6).map((product) => (
@@ -259,7 +259,7 @@ export function SearchHeader({ isMobile = false, isMobileSheet = false }: Search
                             <div className="p-8 text-center text-muted-foreground">No products found for &quot;{searchTerm}&quot;</div>
                         )}
                         {filteredProducts.length > 0 && (
-                            <ScrollArea className="h-96">
+                            <ScrollArea className="relative h-96 overflow-auto">
                                 <div className="p-4">
                                     <div className="space-y-4">
                                         {filteredProducts.slice(0, 6).map((product) => (

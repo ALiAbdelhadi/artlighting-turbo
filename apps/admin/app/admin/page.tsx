@@ -1,8 +1,7 @@
-import React from 'react';
-import AdminClient from './admin-client';
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from 'next/navigation';
 import { toast } from 'sonner';
+import AdminClient from './admin-client';
 
 const AdminPage = async () => {
     // First authentication layer: check if user is logged in with Clerk

@@ -1,6 +1,7 @@
 "use server";
-import { db } from "@repo/database";
 import { auth } from "@clerk/nextjs/server";
+import { prisma } from "@repo/database";
+
 export const getUserStatus = async ({ orderId }: { orderId: number }) => {
   try {
     const { userId } =  await auth();
@@ -8,7 +9,7 @@ export const getUserStatus = async ({ orderId }: { orderId: number }) => {
       console.log("User Not authenticated");
       throw new Error("You need to be logged in");
     }
-    const order = await db.order.findUnique({
+    const order = await prisma.order.findUnique({
       where: { id: orderId },
       include: {
         user: true,

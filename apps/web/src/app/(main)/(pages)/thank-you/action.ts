@@ -1,6 +1,6 @@
 "use server";
-import { db } from "@repo/database";
 import { getAuth } from "@clerk/nextjs/server";
+import { prisma } from "@repo/database";
 import { NextRequest } from "next/server";
 
 export const getCompleteOrderStatus = async ({
@@ -16,7 +16,7 @@ export const getCompleteOrderStatus = async ({
     throw new Error("You need to be logged in to view this page.");
   }
 
-  const order = await db.order.findFirst({
+  const order = await prisma.order.findFirst({
     where: { id: parseInt(orderId, 10), userId: userId },
     include: {
       configuration: true,

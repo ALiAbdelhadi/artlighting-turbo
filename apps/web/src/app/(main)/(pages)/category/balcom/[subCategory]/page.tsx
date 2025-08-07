@@ -1,11 +1,12 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { db } from "@repo/database";
 import { constructMetadata } from "@/lib/utils";
+import { prisma } from "@repo/database";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SubCategoryPage from "./sub-category-section";
+
 export async function generateStaticParams() {
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     select: {
       sectionType: true,
     },
@@ -19,7 +20,7 @@ export async function generateStaticParams() {
 }
 async function Page({ params }: { params: { subCategory: string } }) {
   const { subCategory } = params;
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     where: {
       Brand: "balcom",
       sectionType: subCategory,
@@ -57,7 +58,7 @@ export async function generateMetadata({
   params: { subCategory: string };
 }): Promise<Metadata> {
   const { subCategory } = params;
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     where: {
       Brand: "balcom",
       sectionType: subCategory,

@@ -1,8 +1,8 @@
 "use client"
 
-import { FormControl, FormField, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormLabel, FormMessage } from "@repo/ui/form"
 import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+import { cn } from "@repo/ui"
 import { Eye, EyeOff, Lock, Mail, MapPin, Phone, User } from "lucide-react"
 import type React from "react"
 import { useCallback, useState } from "react"

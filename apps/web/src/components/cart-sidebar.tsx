@@ -2,7 +2,7 @@
 
 import { SignUpButton, useAuth } from "@clerk/nextjs"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Button } from "@repo/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Loader2, Minus, Plus, ShoppingBag, ShoppingCartIcon, Trash2 } from "lucide-react"
 import Image from "next/image"
@@ -31,64 +31,7 @@ export function CartSidebar() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isUpdating, setIsUpdating] = useState<string | null>(null)
-  const [isCheckingOut, setIsCheckingOut] = useState(false)
   const { isSignedIn, userId } = useAuth()
-
-  const handleProceedToCheckout = async () => {
-    if (cartItems.length === 0) {
-      toast.error("Your cart is empty")
-      return
-    }
-
-    setIsCheckingOut(true)
-    try {
-      const response = await fetch("/api/checkout/bulk", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cartItems: cartItems.map((item) => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            price: item.price,
-            discount: item.discount,
-            sectionType: item.sectionType,
-            spotlightType: item.spotlightType,
-          })),
-        }),
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || "Failed to create order")
-      }
-
-      const { orderId } = await response.json()
-
-      // Clear cart after successful order
-      await fetch("/api/cart/clear", {
-        method: "DELETE",
-      })
-
-      setCartItems([])
-
-      const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: "Sonner" }), 2000))
-
-      toast.promise(promise(), {
-        loading: "Processing your order...",
-        success: () => {
-          return `Order ${orderId} created successfully, redirecting to checkout...`
-        },
-        error: "Failed to process your order",
-      })
-    } catch (error) {
-      console.error("Checkout error:", error)
-      toast.error(error.message || "Failed to proceed to checkout")
-    } finally {
-      setIsCheckingOut(false)
-    }
-  }
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -201,22 +144,12 @@ export function CartSidebar() {
     }
   }
 
-  const calculateSubtotal = () => {
-    return cartItems.reduce((total, item) => {
-      const itemPrice = item.discount > 0 ? item.price * (1 - item.discount) : item.price
-      return total + itemPrice * item.quantity
-    }, 0)
-  }
-
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0)
-  const subtotal = calculateSubtotal()
-  const shippingCost = 69
-  const total = subtotal + shippingCost
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="relative h-9 w-9">
+        <Button variant="outline" size="icon" className="relative h-9 w-9 border-border">
           <ShoppingCartIcon className="h-5 w-5" />
           {totalItems > 0 && (
             <Badge

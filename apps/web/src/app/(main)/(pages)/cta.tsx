@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@repo/ui/button"
 import { Facebook, Instagram, Youtube, Phone, MessageCircle } from "lucide-react"
 import Link from "next/link"
 

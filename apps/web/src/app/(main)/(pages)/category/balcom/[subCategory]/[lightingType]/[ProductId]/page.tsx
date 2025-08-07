@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { db } from "@repo/database";
 import { constructMetadata } from "@/lib/utils";
+import { prisma } from "@repo/database";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductClientComponent from "./products";
@@ -12,7 +12,7 @@ const getProductWattage = (productName: string): number => {
 };
 
 export async function generateStaticParams() {
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     select: {
       productId: true,
       category: {
@@ -40,7 +40,7 @@ export default async function ProductPage({
 }) {
   const { lightingType, ProductId, subCategory } = params;
   console.log("Params:", params);
-  const product = await db.product.findUnique({
+  const product = await prisma.product.findUnique({
     where: {
       productId: ProductId,
       sectionType: subCategory,
@@ -54,7 +54,7 @@ export default async function ProductPage({
     notFound();
   }
   const relatedProducts = await getRelatedProducts(product, subCategory);
-  let configuration = await db.configuration.findFirst({
+  let configuration = await prisma.configuration.findFirst({
     where: { ProductId: product.productId },
   });
 
@@ -62,7 +62,7 @@ export default async function ProductPage({
     console.log(
       `Configuration not found for ProductId: ${product.productId}. Creating new configuration.`,
     );
-    configuration = await db.configuration.create({
+    configuration = await prisma.configuration.create({
       data: {
         ProductId: product.productId,
         configPrice: product.price,
@@ -98,7 +98,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lightingType, ProductId, subCategory } = params;
 
-  const product = await db.product.findUnique({
+  const product = await prisma.product.findUnique({
     where: {
       productId: ProductId,
       sectionType: subCategory,
@@ -128,9 +128,9 @@ export async function generateMetadata({
     image: product.productImages[0] || undefined,
   });
 }
-const getRelatedProducts = async (product: any, subCategory: string) => {
+const getRelatedProducts = async (product: unknown, subCategory: string) => {
   const currentWattage = getProductWattage(product.productName);
-  const relatedProducts = await db.product.findMany({
+  const relatedProducts = await prisma.product.findMany({
     where: {
       sectionType: subCategory,
       productName: {

@@ -1,4 +1,4 @@
-import { Container } from "@/components/container"
+import { Container } from "@repo/ui"
 export default function MissionAndVision() {
   return (
     <div className="py-16">

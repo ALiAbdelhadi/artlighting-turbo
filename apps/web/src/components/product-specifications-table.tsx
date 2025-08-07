@@ -3,7 +3,6 @@ import { SpecificationsTable } from "@/types/products"
 
 interface ProductSpecificationsTableProps {
   specificationsTable: SpecificationsTable
-  productName: string
   Brand?: string
   ChandelierLightingType?: string | undefined
   hNumber?: number | null
@@ -12,7 +11,6 @@ interface ProductSpecificationsTableProps {
 
 export default function ProductSpecificationsTable({
   specificationsTable,
-  productName,
   Brand,
   ChandelierLightingType,
   hNumber,

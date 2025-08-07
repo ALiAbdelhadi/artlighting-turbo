@@ -1,5 +1,6 @@
-import { db } from "@repo/database"
+
 import { constructMetadata } from "@/lib/utils"
+import { prisma } from "@repo/database"
 import { notFound } from "next/navigation"
 import Confirm from "./confirm"
 
@@ -16,7 +17,7 @@ export default async function page({ searchParams }: ConfirmProps) {
     return notFound()
   }
 
-  const order = await db.order.findUnique({
+  const order = await prisma.order.findUnique({
     where: { id: Number.parseInt(orderId, 10) },
     include: {
       configuration: true,

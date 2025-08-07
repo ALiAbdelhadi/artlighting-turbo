@@ -1,4 +1,4 @@
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import { brands } from "@/constants";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";

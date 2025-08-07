@@ -1,5 +1,6 @@
 import { CompletingAllOrderInfo } from "@/app/(main)/(configure)/complete/action";
-import { db } from "@repo/database";
+import { prisma } from "@repo/database";
+
 import { NextResponse } from "next/server";
 export async function GET(
   request: Request,
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
         { status: 404 },
       );
     }
-    const updatedOrder = await db.order.update({
+    const updatedOrder = await prisma.order.update({
       where: { id: orderId },
       data: { isCompleted: true },
       include: { user: true, shippingAddress: true },

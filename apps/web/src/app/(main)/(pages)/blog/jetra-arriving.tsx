@@ -1,6 +1,5 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
 import Image from "next/image";
-import { Fragment } from "react";
 export default function JetraArriving() {
   return (
     <>
@@ -28,7 +27,7 @@ export default function JetraArriving() {
                   Coming Soon
                 </h3>
                 <p className="mt-2 text-sm text-gray-500">
-                  We're working on something special. Stay tuned for updates.
+                  We&apos;re working on something special. Stay tuned for updates.
                 </p>
               </div>
             </div>

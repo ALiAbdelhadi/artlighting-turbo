@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus } from "@repo/database";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { changeOrderStatus } from "./action";
+import { cn } from "@repo/ui";
 
 const LABEL_MAP: Record<OrderStatus, string> = {
   awaiting_shipment: "Awaiting Shipment",

@@ -1,7 +1,8 @@
-import { db } from "@repo/database";
+
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Preview from "./preview"
+import { prisma } from "@repo/database"
 
 interface PageProps {
   params: Promise<{
@@ -24,20 +25,20 @@ const Page = async ({ params, searchParams }: PageProps) => {
   let product = null
 
   if (ProductId) {
-    configuration = await db.configuration.findFirst({
+    configuration = await prisma.configuration.findFirst({
       where: { ProductId },
     })
-    product = await db.product.findUnique({
+    product = await prisma.product.findUnique({
       where: { productId: ProductId },
     })
   }
 
   if (!configuration && id && typeof id === "string") {
-    configuration = await db.configuration.findUnique({
+    configuration = await prisma.configuration.findUnique({
       where: { id },
     })
     if (configuration) {
-      product = await db.product.findUnique({
+      product = await prisma.product.findUnique({
         where: { productId: configuration.ProductId },
       })
     }
@@ -53,7 +54,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
 export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
   const { ProductId } = await params
 
-  const product = await db.product.findFirst({
+  const product = await prisma.product.findFirst({
     where: { productId: ProductId },
   })
 

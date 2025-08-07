@@ -1,10 +1,11 @@
 "use client";
 import CustomBreadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { Container } from "@/components/container"
+import { Container } from "@repo/ui";;
 import { newCollectionProducts } from "@/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+
 export default function CollectionSection() {
   const variants = {
     hidden: { opacity: 0, y: 15 },

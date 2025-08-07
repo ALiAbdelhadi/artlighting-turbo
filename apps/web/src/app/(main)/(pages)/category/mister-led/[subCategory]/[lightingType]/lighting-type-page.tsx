@@ -1,7 +1,7 @@
 "use client";
-import { Container } from "@/components/container"
+import { Container } from "@repo/ui";
 import ProductCard from "@/components/product-card/product-card";
-import { Product } from "@prisma/client";
+import { Product } from "@repo/database";
 import { motion } from "framer-motion";
 
 interface LightingTypePageProps {
@@ -15,7 +15,7 @@ export default function LightingTypePage({
   products,
   subCategory,
   lightingType,
-}: LightingTypePageProps){
+}: LightingTypePageProps) {
   const variants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -42,6 +42,12 @@ export default function LightingTypePage({
                 product={{
                   ...product,
                   ProductId: product.productId,
+                  ChandelierLightingType: product.ChandelierLightingType || "",
+                  maximumWattage: product.maximumWattage?.toString() || "",
+                  lampBase: product.lampBase || "",
+                  mainMaterial: product.mainMaterial || "",
+                  beamAngle: product.beamAngle || "",
+                  hNumber: product.hNumber || 0,
                 }}
               />
             ))}

@@ -1,8 +1,9 @@
-import { db } from "@repo/database";
+
 import { constructMetadata } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ThankYouPage from "./ThankYouPage";
+import { prisma } from "@repo/database";
 interface ThankYouProps {
   searchParams: {
     [key: string]: string | string[] | undefined;
@@ -13,7 +14,7 @@ const Page = async ({ searchParams }: ThankYouProps) => {
   if (!orderId || typeof orderId !== "string") {
     return notFound();
   }
-  const order = await db.order.findUnique({
+  const order = await prisma.order.findUnique({
     where: { id: parseInt(orderId, 10) },
     include: {
       configuration: true,
@@ -36,7 +37,7 @@ export async function generateMetadata({
   if (!orderId || typeof orderId !== "string") {
     return notFound();
   }
-  const order = await db.order.findUnique({
+  const order = await prisma.order.findUnique({
     where: { id: parseInt(orderId, 10) },
     include: {
       configuration: true,

@@ -12,8 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatPrice } from "@/lib/utils";
-import { Prisma } from "@prisma/client";
+import { formatPrice } from "@repo/ui/lib";
+import { Prisma } from "@repo/database";
 import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -137,7 +137,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                     <TableRow key={order.id}>
                       <TableCell className="px-4 py-2">
                         <Link
-                          href={`/admin/dashboard/Orders/${order.id}`}
+                          href={`/admin/dashboard/orders/${order.id}`}
                           className="hover:text-primary hover:underline"
                         >
                           # {order.id}
@@ -166,7 +166,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                       </TableCell>
                       <TableCell className="font-medium">
                         {order && order.Brand === "balcom"
-                          ? order.productIp
+                          ? order.configuration?.productIp
                           : "No IP"}
                       </TableCell>
                       <TableCell>

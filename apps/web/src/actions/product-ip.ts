@@ -1,22 +1,20 @@
 "use server";
 
+import { prisma } from "@repo/database";
 import { ProductIP } from "@prisma/client";
-import { db } from "@repo/database";
 
 export const updateProductIP = async ({
-  productId,
   configId,
   newProductIp,
   priceIncrease,
 }: {
-  productId: string;
   configId: string;
   newProductIp: ProductIP;
   priceIncrease: number;
 }) => {
   try {
     console.log(`Updating configuration with ID: ${configId}`);
-    const configuration = await db.configuration.findUnique({
+    const configuration = await prisma.configuration.findUnique({
       where: { id: configId },
     });
 
@@ -27,7 +25,7 @@ export const updateProductIP = async ({
 
     const updatedTotalPrice = configuration.configPrice + priceIncrease;
 
-    const updatedConfig = await db.configuration.update({
+    const updatedConfig = await prisma.configuration.update({
       where: { id: configId },
       data: {
         productIp: newProductIp,

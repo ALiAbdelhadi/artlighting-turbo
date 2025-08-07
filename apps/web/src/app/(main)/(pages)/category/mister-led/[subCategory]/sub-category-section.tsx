@@ -1,7 +1,7 @@
 "use client";
 
-import { Container } from "@/components/container"
-import { Product } from "@prisma/client";
+import { Container } from "@repo/ui"
+import { Product } from "@repo/database";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import ProductCard from "@/components/product-card/product-card";
 import {
   Carousel,
@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils"
+import { cn } from "@repo/ui/lib/utils";
 import Link from "next/link";
 import { useState } from "react";
 

@@ -1,9 +1,8 @@
 "use server";
-
-import { db } from "@repo/database";
+import { prisma } from "@repo/database";
 
 export async function searchProducts(searchItem: string) {
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     where: {
       OR: [
         { productName: { contains: searchItem, mode: "insensitive" } },

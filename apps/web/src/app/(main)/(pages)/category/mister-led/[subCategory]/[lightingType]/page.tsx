@@ -1,12 +1,12 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { db } from "@repo/database";
 import { constructMetadata } from "@/lib/utils";
+import { prisma } from "@repo/database";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LightingTypePage from "./lighting-type-page";
 
 export async function generateStaticParams() {
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     select: {
       productId: true,
       category: {
@@ -33,7 +33,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { subCategory, lightingType } = params;
 
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     where: {
       Brand: "mister-led",
       sectionType: subCategory,
@@ -59,7 +59,7 @@ async function ProductPage({
 }) {
   const { subCategory, lightingType } = params;
 
-  const products = await db.product.findMany({
+  const products = await prisma.product.findMany({
     where: {
       Brand: "mister-led",
       sectionType: subCategory,

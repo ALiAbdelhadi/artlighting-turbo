@@ -1,8 +1,9 @@
-import { db } from "@repo/database";
+
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { prisma } from "@repo/database";
 import { notFound } from "next/navigation";
-import UsersClient from "./users-client";
 import { toast } from "sonner";
+import UsersClient from "./users-client";
 
 const Users = async () => {
   const { userId } = await auth();
@@ -17,7 +18,7 @@ const Users = async () => {
     return notFound();
   }
   try {
-    const users = await db.user.findMany({
+    const users = await prisma.user.findMany({
       select: {
         id: true,
         email: true,

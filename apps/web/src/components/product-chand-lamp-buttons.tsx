@@ -1,12 +1,12 @@
 "use client";
 
 import { changeProductChandLamp } from "@/actions/product-chandLamp";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils"
-import { ProductChandLamp } from "@prisma/client";
+import { Button } from "@repo/ui/button";
+import { ProductChandLamp } from "@repo/database";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { cn } from "@repo/ui";
 const PRODUCT_CHAND_LAMP_LABEL_MAP: Record<
   ProductChandLamp,
   { label: string; priceIncrease: number }
@@ -18,7 +18,6 @@ const PRODUCT_CHAND_LAMP_LABEL_MAP: Record<
 interface ProductChandLampButtonsProps {
   productId: string;
   productChandLamp: ProductChandLamp;
-  basePrice: number;
   hNumber: number;
   onProductLampChange: (
     newProductLamp: ProductChandLamp,
@@ -29,7 +28,6 @@ interface ProductChandLampButtonsProps {
 export default function ProductChandLampButtons({
   productId,
   productChandLamp,
-  basePrice,
   hNumber,
   onProductLampChange,
 }: ProductChandLampButtonsProps) {

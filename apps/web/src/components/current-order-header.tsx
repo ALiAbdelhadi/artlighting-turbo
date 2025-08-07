@@ -1,4 +1,4 @@
-import { Order, Product } from "@prisma/client";
+import { Order, Product } from "@repo/database";
 import { Card, CardContent } from "@/components/ui/card";
 import NormalPrice from "@/components/normal-price";
 

@@ -32,9 +32,6 @@ const SignUpPage = () => {
           </div>
         </div>
         <div className="flex-1 lg:bg-card bg-transparent text-card-foreground flex items-center pt-6 flex-col justify-center">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-primary mb-2">Sign Up</h1>
-          </div>
           <Suspense fallback={<div>Loading...</div>}>
             <ThemedSignUp />
           </Suspense>

@@ -1,6 +1,6 @@
-import { db } from "@repo/database"
-import { auth } from "@clerk/nextjs/server"
-import { NextResponse } from "next/server"
+import { auth } from "@clerk/nextjs/server";
+import { prisma } from "@repo/database";
+import { NextResponse } from "next/server";
 
 export async function DELETE() {
     try {
@@ -9,12 +9,12 @@ export async function DELETE() {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
         }
 
-        const cart = await db.cart.findUnique({
+        const cart = await prisma.cart.findUnique({
             where: { userId },
         })
 
         if (cart) {
-            await db.cartItem.deleteMany({
+            await prisma.cartItem.deleteMany({
                 where: { cartId: cart.id },
             })
         }

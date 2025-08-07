@@ -1,6 +1,6 @@
 "use client";
 import { BentoGridItem } from "@/components/bento-grid-item";
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import ProjectExample from "@/components/project-example";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";

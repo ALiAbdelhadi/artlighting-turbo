@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -6,25 +5,17 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { ChandelierItems, IndoorItems, OutdoorItems, projectDataForHeader } from "@/constants"
+import { Container } from "@repo/ui"
+import { Button } from "@repo/ui/button"
 import { BoxIcon, BriefcaseIcon, MailIcon, MenuIcon, NewspaperIcon, UserIcon, XIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Suspense } from "react"
 import { CartSidebar } from "../cart-sidebar"
-import { Container } from "../container"
 import AuthSection from "./auth-section"
 import { AuthSectionWrapper } from "./auth-section-wrapper"
 import { SearchHeader } from "./search-header"
-
-function AuthSectionLoading() {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="w-9 h-9 bg-gray-200 animate-pulse rounded-md" />
-    </div>
-  )
-}
 
 export default function Header() {
   return (
@@ -62,7 +53,7 @@ export default function Header() {
                   <div className="grid w-[800px] grid-cols-2 lg:grid-cols-3 gap-4 p-6">
                     {projectDataForHeader.map((project) => (
                       <div
-                        className="group relative overflow-hidden rounded-lg border bg-card hover:bg-accent/20 transition-colors"
+                        className="group relative overflow-hidden rounded-lg border border-border bg-card hover:bg-accent/20 transition-colors"
                         key={project.ProjectId}
                       >
                         <Link href={`/all-projects/${project.ProjectId}`} className="block p-4">
@@ -174,11 +165,9 @@ export default function Header() {
               </NavigationMenuItem>
               <div className="hidden lg:flex items-center space-x-3">
                 <SearchHeader />
-                <Suspense fallback={<AuthSectionLoading />}>
-                  <AuthSectionWrapper>
-                    <AuthSection />
-                  </AuthSectionWrapper>
-                </Suspense>
+                <AuthSectionWrapper>
+                  <AuthSection />
+                </AuthSectionWrapper>
               </div>
             </NavigationMenuList>
           </NavigationMenu>
@@ -196,11 +185,12 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[85vw] max-w-sm overflow-y-auto">
                 <div className="flex justify-between px-3 py-2">
-                  <Suspense fallback={<AuthSectionLoading />}>
+                  <SheetHeader className="py-0 px-0">
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                     <AuthSectionWrapper>
                       <AuthSection />
                     </AuthSectionWrapper>
-                  </Suspense>
+                  </SheetHeader>
                   <SheetClose className="cursor-pointer">
                     <XIcon className="size-5" />
                     <span className="sr-only">Close</span>
@@ -273,6 +263,6 @@ export default function Header() {
           </div>
         </div>
       </Container>
-    </header>
+    </header >
   )
 }

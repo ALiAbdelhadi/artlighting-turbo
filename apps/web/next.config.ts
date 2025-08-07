@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  experimental: {
+    // serverExternalPackages: ["@prisma/client"],
+  },
 };
 
 export default nextConfig;

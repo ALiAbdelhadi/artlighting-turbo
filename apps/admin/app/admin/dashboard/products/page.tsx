@@ -1,12 +1,15 @@
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import DashboardHeader from "@/components/dashboard-header";
-import { Button } from "@/components/ui/button";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { prisma } from "@repo/database";
+import { Button } from "@repo/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { formatPrice } from "@repo/ui/lib/index";
 import {
   Table,
   TableBody,
@@ -15,9 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatPrice } from "@/lib/utils";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { db } from "@repo/database";
 import { MoveHorizontalIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -36,7 +36,7 @@ const Products = async () => {
     console.log("User Not authorized");
     return notFound();
   }
-  const orders = await db.order.findMany({
+  const orders = await prisma.order.findMany({
     where: {
       isCompleted: true,
     },

@@ -1,10 +1,8 @@
 "use client";
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { Container } from "@/components/container";
 import DiscountPrice from "@/components/discount-price";
 import NormalPrice from "@/components/normal-price";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -15,32 +13,18 @@ import {
 } from "@/components/ui/table";
 import { PRODUCT_LAMP_LABEL } from "@/config";
 import { calculateEstimatedDeliveryDate, isProductChandLamp } from "@/lib/utils";
-import { Product, ProductChandLamp, ShippingAddress } from "@prisma/client";
+import { ProductChandLamp } from "@repo/database";
+import { Container } from "@repo/ui";
+import { formatPrice } from "@repo/ui/lib";
+import { Separator } from "@repo/ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { formatPrice } from "@/lib/utils";
 
-interface Order {
-  id: string;
-  totalPrice: number;
-  status: string;
-  isCompleted: boolean;
-  discountedPrice: number;
-  product: Product;
-  quantity: number;
-  productPrice: number;
-  shippingAddress: ShippingAddress;
-  shippingPrice: number;
-  discount: number;
-  configPrice: number;
-  OrderTimeReceived: string;
-  sectionType: string;
-}
 
 
 export default function ThankYouPage({ discount }: { discount: number }) {
@@ -68,10 +52,22 @@ export default function ThankYouPage({ discount }: { discount: number }) {
     queryKey: ["get-order-completed-status", orderId],
     queryFn: async () => {
       const response = await fetch(`/api/orders/${orderId}`);
-      if (!response.ok) throw new Error("Failed to fetch order status");
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("API Error:", errorText);
+        try {
+          const errorJson = JSON.parse(errorText);
+          throw new Error(errorJson.error || "Failed to fetch order status");
+        } catch {
+          throw new Error(`HTTP ${response.status}: ${errorText}`);
+        }
+      }
+      
       return response.json();
     },
     enabled: !!orderId,
+    retry: 1,
   });
   useEffect(() => {
     const lastCompletedOrderId = localStorage.getItem("lastCompletedOrderId");
@@ -117,7 +113,7 @@ export default function ThankYouPage({ discount }: { discount: number }) {
                 Your product is on the way!
               </h1>
               <p className="mb-6 text-lg text-muted-foreground">
-                We've received your order and are now processing it.
+                We&apos;ve received your order and are now processing it.
               </p>
             </div>
             <div className="mt-10 md:-mb-10 border-t border-zinc-200">
@@ -128,7 +124,7 @@ export default function ThankYouPage({ discount }: { discount: number }) {
                 <p className="mt-2 text-lg text-muted-foreground">
                   At Art Lighting, we believe that lighting products should not
                   only be visually appealing but also built to last for years to
-                  come. That's why we offer an industry-leading 3-year warranty
+                  come. That&lsquo;s why we offer an industry-leading 3-year warranty
                   on all our products.
                 </p>
               </div>
@@ -268,7 +264,7 @@ export default function ThankYouPage({ discount }: { discount: number }) {
                                 "lamp" && (
                                   <TableCell className="font-semibold capitalize ">
                                     {isProductChandLamp(order.productChandLamp)
-                                      ? PRODUCT_LAMP_LABEL[order.productChandLamp]
+                                      ? PRODUCT_LAMP_LABEL[order.productChandLamp as ProductChandLamp]
                                       : "Unknown Lamp"}
                                   </TableCell>
                                 )

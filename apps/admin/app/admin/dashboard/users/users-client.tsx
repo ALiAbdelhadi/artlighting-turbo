@@ -1,6 +1,8 @@
 "use client";
 
 import DashboardHeader from "@/components/dashboard-header";
+import UserAvatar from "@/components/user-avatar";
+import { ShippingAddress, User } from "@repo/database";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,8 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import UserAvatar from "@/components/user-avatar";
-import { ShippingAddress, User } from "@prisma/client";
 import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

@@ -1,4 +1,5 @@
-import { formatPrice } from "@/lib/utils";
+import { formatPrice } from "@repo/ui/lib";
+
 
 type ProductPrices = {
   price: number;

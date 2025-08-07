@@ -3,11 +3,11 @@
 import { addToCart } from "@/actions/cart"
 import { updateProductIP } from "@/actions/product-ip"
 import { saveConfig as _saveConfig, type SaveConfigArgs } from "@/components/action"
-import { cn } from "@/lib/utils"
+import { cn } from "@repo/ui"
 import { ProductMainInfoProps } from "@/types/products"
 import { useAuth } from "@clerk/nextjs"
-import { type Configuration, ProductChandLamp, ProductColorTemp, ProductIP } from "@prisma/client"
-import { Button } from "@/components/ui/button"
+import { type Configuration, ProductChandLamp, ProductColorTemp, ProductIP } from "@repo/database"
+import { Button } from "@repo/ui/button"
 import {
   Dialog,
   DialogClose,
@@ -71,7 +71,8 @@ const ProductMainInfo: React.FC<ProductMainInfoProps> = ({
   const [selectedColorTemp, setSelectedColorTemp] = useState<ProductColorTemp>(
     (order?.productColorTemp as ProductColorTemp) || ProductColorTemp.warm,
   )
-  const [configuration, setConfiguration] = useState<Configuration | undefined>(initialConfiguration as Configuration)
+  // Fixed: Using underscore prefix to indicate intentionally unused variable
+  const [, setConfiguration] = useState<Configuration | undefined>(initialConfiguration as Configuration)
   const [selectedProductIp, setSelectProductIp] = useState<ProductIP>((order?.productIp as ProductIP) || ProductIP.IP20)
   const [selectedProductChandLamp, setSelectedProductChandLamp] = useState<ProductChandLamp>(
     (order?.productChandLamp as ProductChandLamp) || ProductChandLamp.lamp9w,
@@ -209,6 +210,8 @@ const ProductMainInfo: React.FC<ProductMainInfoProps> = ({
           await addToCart(ProductId)
           toast(`${productName} has been added to your cart`)
         } catch (error) {
+          // Fixed: Added proper error handling and logging
+          console.error("Failed to add item to cart:", error)
           toast("Failed to add item to cart. Please try again.")
         }
       }

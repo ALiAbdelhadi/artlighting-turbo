@@ -1,13 +1,13 @@
-import { db } from "@repo/database";
+import { prisma } from "@repo/database"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ ProductId: string }> }) {
   try {
     const { ProductId } = await params
 
-    const configuration = await db.configuration.findFirst({
+    const configuration = await prisma.configuration.findFirst({
       where: { ProductId },
-      orderBy: { updatedAt: "desc" }, 
+      orderBy: { updatedAt: "desc" },
     })
 
     if (!configuration) {

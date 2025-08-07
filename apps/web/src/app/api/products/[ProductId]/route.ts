@@ -1,6 +1,6 @@
-import { db } from "@repo/database";
 import { type NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
+import { prisma } from "@repo/database"
 
 const ParamsSchema = z.object({
   ProductId: z.string(),
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     console.log(`Fetching product with ID: ${ProductId}`)
 
-    const product = await db.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         productId: ProductId,
       },

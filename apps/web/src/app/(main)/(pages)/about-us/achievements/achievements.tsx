@@ -1,7 +1,7 @@
 "use client";
 
-import { Container } from "@/components/container"
-import { Button } from "@/components/ui/button";
+import { Container } from "@repo/ui"
+import { Button } from "@repo/ui/button";
 import {
   Card,
   CardContent,
@@ -43,7 +43,6 @@ export default function Achievements() {
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    const statsSection = document.querySelector(".stats");
     const numbers = document.querySelectorAll(".number");
 
     const handleScroll = () => {

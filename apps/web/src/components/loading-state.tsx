@@ -8,7 +8,7 @@ const LoadingState = () => {
                 <Loader2 className="w-12 h-12 animate-spin mx-auto text-primary" />
                 <div>
                     <h2 className="text-xl font-semibold">Loading your order...</h2>
-                    <p className="text-muted-foreground">This won't take long</p>
+                    <p className="text-muted-foreground">This won&lsquo;t take long</p>
                 </div>
             </div>
         </div>

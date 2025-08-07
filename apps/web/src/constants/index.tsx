@@ -95,6 +95,11 @@ export const IndoorItems = [
 // outdoor items
 export const OutdoorItems = [
   {
+    id: "spikes",
+    spotlightType: "Spikes",
+    href: "/category/balcom/outdoor/spikes",
+  },
+  {
     id: "uplight",
     spotlightType: "Uplight",
     href: "/category/balcom/outdoor/uplight",

@@ -1,6 +1,6 @@
 "use client";
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { Container } from "@/components/container"
+import { Container } from "@repo/ui"
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ export default function PrivacySection() {
       },
     },
   };
-  const [lastUpdate, setLastUpdate] = useState<String>("");
+  const [lastUpdate, setLastUpdate] = useState<string>("");
   useEffect(() => {
     const date = new Date();
     const formateDate = new Intl.DateTimeFormat("en-US", {
@@ -195,7 +195,7 @@ export default function PrivacySection() {
                     </h3>
                     <p className="mt-2 text-muted-foreground">
                       If you have any questions about this privacy policy or our
-                      data practices, please don't hesitate to contact us:
+                      data practices, please don&apos;t hesitate to contact us:
                     </p>
                     <p className="mt-2 text-muted-foreground">
                       You can reach us by phone at{" "}
@@ -217,8 +217,8 @@ export default function PrivacySection() {
                       </Link>
                     </p>
                     <p className="mt-2 text-muted-foreground">
-                      We're available Saturday - Thursday, 9.30am to 5.30pm, and
-                      we'll do our best to respond to your inquiry as quickly as
+                      We&apos;re available Saturday - Thursday, 9.30am to 5.30pm, and
+                      we&apos;ll do our best to respond to your inquiry as quickly as
                       possible.
                     </p>
                   </div>

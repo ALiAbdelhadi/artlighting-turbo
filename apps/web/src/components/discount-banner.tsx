@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import { Clock, X } from "lucide-react";
 import { useState } from "react";
-import { Container } from "./container";
+import { Container } from "@repo/ui";
 
 export default function WhiteFridayBanner() {
   const [isBannerVisible, setIsBannerVisible] = useState(true);

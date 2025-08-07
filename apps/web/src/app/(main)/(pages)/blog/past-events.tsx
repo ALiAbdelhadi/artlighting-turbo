@@ -1,7 +1,6 @@
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 
 const PastEvents = () => {
   return (

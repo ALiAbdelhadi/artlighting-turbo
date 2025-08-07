@@ -1,6 +1,6 @@
 "use server";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { db } from "@repo/database";
+import { prisma } from "@repo/database";
 import { redirect } from "next/navigation";
 
 export const DashboardServer = async () => {
@@ -10,8 +10,8 @@ export const DashboardServer = async () => {
   if (!userId || !user) {
     return redirect("/404");
   }
-  
-  const orders = await db.order.findMany({
+
+  const orders = await prisma.order.findMany({
     where: {
       isCompleted: true,
       createdAt: {
@@ -29,14 +29,14 @@ export const DashboardServer = async () => {
     },
   });
 
-  const totalCustomers = await db.user.count();
-  const totalOrdersThatOrdered = await db.order.count({
+  const totalCustomers = await prisma.user.count();
+  const totalOrdersThatOrdered = await prisma.order.count({
     where: {
       isCompleted: true,
     },
   });
 
-  const TotalSales = await db.order.aggregate({
+  const TotalSales = await prisma.order.aggregate({
     where: {
       isCompleted: true,
     },
@@ -77,9 +77,9 @@ export const DashboardServer = async () => {
       },
       shippingAddress: order.shippingAddress
         ? {
-            id: order.shippingAddress.id,
-            fullName: order.shippingAddress.fullName,
-          }
+          id: order.shippingAddress.id,
+          fullName: order.shippingAddress.fullName,
+        }
         : null,
     };
   });

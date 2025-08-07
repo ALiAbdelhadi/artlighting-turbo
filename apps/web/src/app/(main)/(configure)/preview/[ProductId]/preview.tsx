@@ -1,13 +1,13 @@
 "use client";
 
-import { Container } from "@/components/container";
+import { Container } from "@repo/ui";
 import DiscountPrice from "@/components/discount-price";
 import LoginModal from "@/components/login-model";
 import NormalPrice from "@/components/normal-price";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@repo/ui/button";
+import { ScrollArea } from "@repo/ui/scroll-area";
 import { useUser } from "@clerk/nextjs";
-import { Configuration, Product } from "@prisma/client";
+import { Configuration, Product } from "@repo/database";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
@@ -208,14 +208,11 @@ export default function Preview({
           <h1 className="lg:text-3xl md:text-2xl text-xl font-bold sm:mb-8">
             Preview Your Order
           </h1>
-
           <LoginModal
             isOpen={isLoginModalOpen}
             setIsOpen={setIsLoginModalOpen}
           />
-
           <div className="flex flex-col lg:flex-row lg:gap-x-12 gap-x-0">
-            {/* Product Images Section */}
             <div className="lg:w-[40%] md:w-[50%] mb-0">
               {product.productImages && product.productImages.length > 0 ? (
                 <div>
@@ -262,15 +259,9 @@ export default function Preview({
                 </div>
               )}
             </div>
-
-            {/* Product Details Section */}
             <div>
               <div className="h-[37.5rem] w-full col-span-full lg:col-span-1 flex flex-col">
                 <ScrollArea className="relative flex-1 overflow-auto">
-                  <div
-                    aria-hidden="true"
-                    className="absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-muted/30 to-transparent dark:from-[#252525] dark:to-transparent pointer-events-none"
-                  />
                   <div className="p-[18px]">
                     <div className="-ml-4">
                       <h2 className="md:text-2xl text-xl mt-6 font-bold text-primary">
@@ -281,8 +272,6 @@ export default function Preview({
                         In stock and ready to ship
                       </div>
                     </div>
-
-                    {/* Product Highlights */}
                     <div className="sm:col-span-12 md:col-span-9 text-base mb-6">
                       <div className="grid grid-cols-1 border-b border-gray-200 py-4 sm:py-2 md:py-4">
                         <div>
@@ -320,8 +309,6 @@ export default function Preview({
                           </ol>
                         </div>
                       </div>
-
-                      {/* Features Section */}
                       <div className="grid grid-cols-1 border-b border-gray-200 py-4 sm:py-2 md:py-4">
                         <div>
                           <p className="font-bold md:text-xl text-lg -ml-4">Features</p>
@@ -338,8 +325,6 @@ export default function Preview({
                         </div>
                       </div>
                     </div>
-
-                    {/* Pricing Section */}
                     <div className="mt-8">
                       <div className="py-4 sm:py-6 sm:rounded-lg">
                         <div className="flow-root text-lg">
@@ -401,8 +386,6 @@ export default function Preview({
                   </div>
                 </ScrollArea>
               </div>
-
-              {/* Confirmation Button */}
               <div className="mt-8 flex md:justify-end justify-center pb-12">
                 <Button
                   onClick={handleConfirm}

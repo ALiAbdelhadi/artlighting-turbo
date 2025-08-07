@@ -1,4 +1,5 @@
-import { db } from "@repo/database";
+
+import { prisma } from "@repo/database";
 import ProductsClient from "./products-client";
 
 const ProductsSection = async () => {
@@ -42,7 +43,7 @@ const ProductsSection = async () => {
     "product-jy-5053-200w",
     "product-jy-309-36w",
   ];
-  const selectedProducts = await db.product.findMany({
+  const selectedProducts = await prisma.product.findMany({
     where: {
       productId: { in: productIds },
     },

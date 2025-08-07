@@ -1,6 +1,7 @@
 "use client";
-import { Container } from "@/components/container";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Configuration, Order, Product, ShippingAddress, User } from "@repo/database";
+import { Container } from "@repo/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -9,10 +10,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatPrice } from "@repo/ui/lib";
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
-import { formatPrice } from "@/lib/utils";
-import { Order, Product, ShippingAddress, User } from "@prisma/client";
+import { Separator } from "@repo/ui/separator";
 import { format } from "date-fns";
 import { Box, Calendar, MapPin, Truck } from "lucide-react";
 import Image from "next/image";
@@ -25,6 +25,7 @@ interface OrderPageProps {
     shippingAddress: ShippingAddress | null;
     product: Product;
     user: User;
+    configuration: Configuration
   };
 }
 
@@ -88,7 +89,7 @@ export default function OrderPage({ order }: OrderPageProps) {
                       label="Color Temperature"
                       value={order.productColorTemp}
                     />
-                    <ProductDetail label="IP Rating" value={order.productIp} />
+                    <ProductDetail label="IP Rating" value={order.configuration.productIp} />
                     {order.ChandelierLightingType && (
                       <ProductDetail
                         label="Lamp Type"
@@ -121,14 +122,14 @@ export default function OrderPage({ order }: OrderPageProps) {
                   label="Product Price"
                   value={formatPrice(order.configPrice)}
                 />
-                {order.discountRate > 0 && (
+                {order.discountRate && order.discountRate > 0 && (
                   <PriceDetail
                     label={`Discount (${(order.discountRate * 100).toFixed(0)}%)`}
                     value={`-${formatPrice((order.productPrice - (order.discountedPrice || 0)) * order.quantity)}`}
                     className="text-green-600"
                   />
                 )}
-                {order.priceIncrease > 0 && (
+                {order.priceIncrease && order.priceIncrease > 0 && (
                   <PriceDetail
                     label="Price Increase"
                     value={formatPrice(order.priceIncrease)}

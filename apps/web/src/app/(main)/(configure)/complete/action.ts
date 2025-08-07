@@ -1,14 +1,11 @@
 "use server";
-import { db } from "@repo/database";
 import { auth } from "@clerk/nextjs/server";
-import { NextRequest } from "next/server";
+import { prisma } from "@repo/database";
 
 export const CompletingAllOrderInfo = async ({
   orderId,
-  req,
 }: {
   orderId: number;
-  req?: NextRequest;
 }) => {
   try {
     const { userId } = await auth();
@@ -16,12 +13,13 @@ export const CompletingAllOrderInfo = async ({
       console.log("user not authenticated");
       throw new Error("You need to be logged in to access this information");
     }
-    const order = db.order.findFirst({
+    const order = prisma.order.findFirst({
       where: { id: orderId, userId: userId },
       include: {
         shippingAddress: true,
         product: true,
         user: true,
+        configuration: true
       },
     });
     if (!order) {

@@ -1,9 +1,9 @@
 "use client";
 
 import { changeProductColorTemp } from "@/actions/product-color-temp";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils"
-import { ProductColorTemp } from "@prisma/client";
+import { Button } from "@repo/ui/button";
+import { cn } from "@repo/ui";
+import { ProductColorTemp } from "@repo/database";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

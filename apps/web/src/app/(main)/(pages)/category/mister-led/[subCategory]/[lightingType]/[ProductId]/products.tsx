@@ -1,11 +1,11 @@
 "use client";
 import ColorTemperatureSection from "@/components/color-temperature-section";
-import { Container } from "@/components/container"
+import { Container } from "@repo/ui";
 import ProductFeatures from "@/components/product-features";
 import ProductImagesForCh from "@/components/product-images-for-chand";
 import ProductMainInfo from "@/components/product-main-Info";
 import ProductSpecifications from "@/components/product-specifications-table";
-import { Order, OrderStatus, Product, Configuration } from "@prisma/client";
+import { Configuration, Order, OrderStatus, Product } from "@repo/database";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -106,18 +106,18 @@ export default function ProductClientComponent({
                 maxIP={0}
                 configuration={product.configuration}
                 sectionType={product.sectionType}
-                maximumWattage={product.maximumWattage}
-                mainMaterial={product.mainMaterial}
-                beamAngle={product.beamAngle}
-                luminousFlux={product.luminousFlux}
-                lifeTime={product.lifeTime}
-                energySaving={product.energySaving}
-                cri={product.cri}
-                brandOfLed={product.brandOfLed}
-                electrical={product.electrical}
-                finish={product.finish}
-                input={product.input}
-                lampBase={product.lampBase}
+                maximumWattage={product.maximumWattage || undefined}
+                mainMaterial={product.mainMaterial || undefined}
+                beamAngle={product.beamAngle || undefined}
+                luminousFlux={product.luminousFlux || undefined}
+                lifeTime={product.lifeTime || undefined}
+                energySaving={product.energySaving || undefined}
+                cri={product.cri || undefined}
+                brandOfLed={product.brandOfLed || undefined}
+                electrical={product.electrical || undefined}
+                finish={product.finish || undefined}
+                input={product.input || undefined}
+                lampBase={product.lampBase || undefined}
               />
             </div>
             <ProductSpecifications

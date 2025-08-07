@@ -1,8 +1,8 @@
 "use client";
 
 import Breadcrumb from "@/components/breadcrumb/custom-breadcrumb";
-import { Container } from "@/components/container"
-import { Button } from "@/components/ui/button";
+import { Container } from "@repo/ui"
+import { Button } from "@repo/ui/button";
 import { constructMetadata } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";

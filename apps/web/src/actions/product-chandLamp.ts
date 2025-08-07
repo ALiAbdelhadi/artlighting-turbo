@@ -1,6 +1,5 @@
 "use server";
-import { ProductChandLamp } from "@prisma/client";
-import { db } from "@repo/database";
+import { prisma, ProductChandLamp } from "@repo/database";
 
 export const changeProductChandLamp = async ({
   productId,
@@ -9,7 +8,7 @@ export const changeProductChandLamp = async ({
   productId: string;
   newProductLamp: ProductChandLamp;
 }) => {
-  await db.product.update({
+  await prisma.product.update({
     where: { productId },
     data: { productChandLamp: newProductLamp },
   });
