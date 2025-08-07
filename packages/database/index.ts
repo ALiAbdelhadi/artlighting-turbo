@@ -1,4 +1,3 @@
-import 'dotenv-flow/config';
 import { PrismaClient } from '@prisma/client'
 
 declare global {
