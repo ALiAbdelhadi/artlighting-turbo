@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL || "postgresql://Artlighting_owner:yKji3Mln6hAX@ep-gentle-bonus-a2strofg-pooler.eu-central-1.aws.neon.tech/Artlighting?sslmode=require"
+      url: process.env.DATABASE_URL
     }
   }
 });
